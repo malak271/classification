@@ -2,24 +2,24 @@ from flask import Flask
 from flask import render_template
 from datetime import datetime
 from flask import Flask, request 
-import pickle
-import pandas as pd
+# import pickle
+# import pandas as pd
 from flask_cors import CORS
-import json, argparse, time
-import os
-import docx2txt
-import docx
-import PyPDF2
-from docx.enum.text import WD_COLOR_INDEX
-from docx import Document
-from PyPDF2 import PdfFileReader
+# import json, argparse, time
+# import os
+# import docx2txt
+# import docx
+# import PyPDF2
+# from docx.enum.text import WD_COLOR_INDEX
+# from docx import Document
+# from PyPDF2 import PdfFileReader
+# # import shutil 
 # import shutil 
-import shutil 
-from datetime import datetime
-import fitz
-from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileRequired
-from werkzeug.utils import secure_filename
+# from datetime import datetime
+# import fitz
+# from flask_wtf import FlaskForm
+# from flask_wtf.file import FileField, FileRequired
+# from werkzeug.utils import secure_filename
 
 # Importing flask module in the project is mandatory
 # An object of Flask class is our WSGI application.
@@ -254,5 +254,4 @@ if __name__ == '__main__':
  
     # run() method of Flask class runs the application
     # on the local development server.
-    app.debug = True
-    app.run()
+    app.run(debug = True)
