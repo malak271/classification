@@ -9,7 +9,6 @@ docx==0.2.4
 docx2txt==0.8
 etelemetry==0.3.0
 filelock==3.8.2
-fitz==0.0.1.dev2
 Flask==2.2.2
 Flask-Cors==3.0.10
 Flask-WTF==1.0.1
