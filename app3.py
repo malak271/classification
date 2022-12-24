@@ -2,24 +2,25 @@ from flask import Flask
 from flask import render_template
 from datetime import datetime
 from flask import Flask, request 
-# import pickle
-# import pandas as pd
+import pickle
+import pandas as pd
 from flask_cors import CORS
-# import json, argparse, time
-# import os
-# import docx2txt
-# import docx
-# import PyPDF2
-# from docx.enum.text import WD_COLOR_INDEX
-# from docx import Document
-# from PyPDF2 import PdfFileReader
-# # import shutil 
+import time
+import os
+import docx2txt
+import docx
+import PyPDF2
+from docx.enum.text import WD_COLOR_INDEX
+from docx import Document
+from PyPDF2 import PdfReader 
 # import shutil 
-# from datetime import datetime
-# import fitz
-# from flask_wtf import FlaskForm
-# from flask_wtf.file import FileField, FileRequired
-# from werkzeug.utils import secure_filename
+import shutil 
+from datetime import datetime
+import fitz
+import flask_wtf
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
 
 # Importing flask module in the project is mandatory
 # An object of Flask class is our WSGI application.
@@ -88,7 +89,7 @@ def sort():
         path_of_file = os.path.join(os.path.abspath(os.path.dirname(name_of_dir)), name_of_file)
 
         if(name_of_file.endswith('.pdf')):#expression_if_true if condition else expression_if_false
-            title_of_file  = PdfFileReader(path_of_file).getDocumentInfo().title     
+            title_of_file  = PdfReader(path_of_file).metadata.title
             if title_of_file  is not None:
                title_of_file+=".pdf" 
         elif(name_of_file.endswith('.docx')):
@@ -168,21 +169,21 @@ def readPDF(file_name):
     pdfFileObj = open(file_name, 'rb')
    
 # creating a pdf reader object
-    pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+    pdfReader = PyPDF2.PdfReader(pdfFileObj)
    
 # printing number of pages in pdf file
-    print(pdfReader.numPages)
-   
+    # print(pdfReader.numPages)
+   # reader.getPage(pageNumber) is deprecated and was removed in PyPDF2 3.0.0. Use reader.pages[page_number] instead.
 # creating a page object
-    pageObj = pdfReader.getPage(0)
+    pageObj = pdfReader.pages[0]
    
 # extracting text from page
-    print(pageObj.extractText())
+    # print(pageObj.extract_text())
    
 # closing the pdf file object
     pdfFileObj.close()
 
-    return pageObj.extractText()
+    return pageObj.extract_text()
 
 # The route() function of the Flask class is a decorator,
 # which tells the application which URL should call
@@ -201,11 +202,11 @@ def search_pdf(file_name,text):
     for page in doc:
         ### SEARCH
         text = text
-        text_instances = page.searchFor(text)#searchFor
+        text_instances = page.search_for(text)#searchFor
 
         ### HIGHLIGHT
     for inst in text_instances:
-        highlight = page.addHighlightAnnot(inst)
+        highlight = page.add_highlight_annot(inst)
         doc.save("output/"+file_name,garbage=4, deflate=True, clean=True)
     #  return request.form['search'] 
 
@@ -218,7 +219,7 @@ def getMetaData(doc):
 def sort_key(file_name):
     name_of_dir = 'documents/'
     if(file_name.endswith('.pdf')):
-       title=PdfFileReader(open(os.path.join(name_of_dir, file_name), 'rb')).getDocumentInfo().title
+       title=PdfReader(open(os.path.join(name_of_dir, file_name), 'rb')).metadata.title
     elif(file_name.endswith('.docx')):
        title=getMetaData(docx.Document(os.path.join(name_of_dir, file_name)))
     print(title)
