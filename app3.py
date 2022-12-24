@@ -164,6 +164,10 @@ def predict(test_article):
     return prediction_cat
  
 def readPDF(file_name):
+    # with open(file_name, 'rb') as file:
+    # pdf = PdfFileReader(file)
+    # page = pdf.getPage(1)
+    # print(page.extractText())
     # creating a pdf file object
     pdfFileObj = open(file_name, 'rb')
    
@@ -180,7 +184,7 @@ def readPDF(file_name):
     # print(pageObj.extract_text())
    
 # closing the pdf file object
-    pdfFileObj.close()
+    # pdfFileObj.close()
 
     return pageObj.extract_text()
 
