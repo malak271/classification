@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+ <body style="background-color: darksalmon;  padding-top: 70px; text-align: center;" >
+    <h1 >Welcome!</h1>
+    <form  action="{{ url_for('searchText')}}" method="post" >
+        <input type="text" name="search" placeholder="Enter word" autocomplete="off" >
+        <input type="submit" value="Search">
+    </form> <br>
+    <form action ="{{ url_for('sort')}}" method="post" >
+        <input type="submit" value="Sort">
+    </form>
+    <br>
+    <form action = "predict" method = "post">
+        <p><input type = "submit" value = "classification" /></p>       
+    </form>   
+    <form action = "upload" method = "post" enctype="multipart/form-data"> 
+        <input type="file" name="file" />         
+        <p><input type = "submit" value = "submit" /></p> 
+    </form>  
+</body>
+</html>
+
